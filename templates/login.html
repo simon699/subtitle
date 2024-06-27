@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>image captioning generator｜ image caption generator,subtitle,subtitle from image,make subtitle </title>
+    <meta name="description" content="Users upload pictures, AI analyzes the picture content, and generates image captions">
+    <meta name="keywords" content="image captioning generator,image captioning,image caption,caption generator,Add caption to an Image or Photo,">
+
+    {% block ext_css %}
+    <link rel="stylesheet" href={% static 'css/login/login.css' %} />
+    <link rel="stylesheet" href={% static 'css/bootstrap.min.css' %} />
+    {% endblock %}
+
+    <!-- 引入 jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HV4ZH0DEWW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HV4ZH0DEWW');
+</script>
+
+
+<body style="background-color: #e8e8e8;">
+
+<div class="container">
+    
+    <div id="loginview" style="display: none;">
+        <form id="loginForm" action="{% url 'login_user' %}" method="POST">
+            <p class="form-title">LOGIN</p>
+            <div class="input-container">
+                {{ form_obj.login_username }}
+            </div>
+            <div class="input-container">
+                {{ form_obj.login_password}}
+                <span class="error" id="passwordError"></span>
+            </div>
+                {% if message %}
+                <span class="error">
+                {{ message }}
+                </span>
+                {% endif %}
+            {% csrf_token %}
+            <button type="submit" class="submit">LOGIN</button>
+
+            <p class="signup-link" style="margin-top: 10px;">No account？
+                <a onclick="location.href = '{% url 'signup' %}'" style="margin-top: 10px;">Click to register an account</a>
+            </p>
+        </form>
+    </div>
+
+    <div id="signview" style="display: none;">
+        <form id="signForm" action="{% url 'sign_user' %}" method="POST" >
+            <p class="form-title">Register your account</p>
+            <div class="input-container">
+                {{ form_obj.sign_username }}
+                <p class="hint-p">Username length 6 to 16 characters</p>
+            </div>
+            <div class="input-container">
+                {{ form_obj.sign_password }}
+                <p class="hint-p">The password must be 8 to 20 characters long.</p>
+            </div>
+            <div class="input-container">
+                {{form_obj.sign_confirm_password}}
+            </div>
+            <div class="input-container">
+                {{form_obj.sign_email}}
+                <span class="error" id="errorText"></span>
+            </div>
+            {% if message %}
+            <span class="error">
+                {{ message }}
+            </span>
+            {% endif %}
+        
+            {% csrf_token %}
+            <button type="submit" class="submit">Register</button>
+
+            <p class="signup-link" style="margin-top: 10px;">Have an account？
+                <a  onclick="location.href = '{% url 'login' %}'">Click to Login </a>
+            </p>
+        </form>
+    </div>
+</div>
+
+    
+
+{% block ext_js %}
+    <script src={% static 'js/bootstrap.bundle.min.js' %}></script>
+    <script src={% static 'js/login.js' %}></script>
+{% endblock %}
+<script>
+    var name = '{{ name|escapejs }}';
+    
+    document.getElementById('loginForm').addEventListener('submit',function (event){
+
+        var username = document.getElementById('login_username').value;
+        var password = document.getElementById('login_password').value;
+        var errorText = document.getElementById('passwordError');
+        
+        if (username .length == 0  || password.length == 0 ){
+            errorText.textContent = 'username or password is empty';
+            event.preventDefault();
+            return;
+        }else if (username.length <=6 || username.length >= 16){
+            errorText.textContent = 'The account number must be between 6 and 16 characters long.';
+            event.preventDefault();
+            return;
+            
+        } else {
+            errorText.textContent = '';
+        }
+        
+        var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
+         console.log(password)
+        if (!passwordRegex.test(password)){
+            errorText.textContent = 'The password must be 8 to 20 characters long.';
+            isValid = false;
+            event.preventDefault();
+            return;
+            
+        } else {
+            errorText.textContent = '';
+        }
+    });
+    
+    document.getElementById('id_sign_username').addEventListener('blur',function (){
+        var username = this.value.trim();
+        var errorText = document.getElementById('errorText');
+        if (username.length <6 || username.length > 16){
+            errorText.textContent = 'Username length 6 to 16 characters';
+        }else {
+            
+            $.ajax({
+                url:'{% url "check_user" %}',
+                method:'GET',
+                data:{
+                    username:username
+                },
+                success:function (response){
+                    if (response.exists){
+                        errorText.textContent = 'username already exists';
+                    }
+                    else {
+                        errorText.textContent = '';
+                    }
+                }
+            });
+        }
+    });
+    
+     document.getElementById('signForm').addEventListener('submit',function (event) {
+         
+         var username = document.getElementById('id_sign_username').value;
+         var password = document.getElementById('id_sign_password').value;
+         var res_pw = document.getElementById('id_sign_confirm_password').value;
+         var email = document.getElementById('id_sign_email').value;
+         var errorText = document.getElementById('errorText');
+         var passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/;
+         var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+         
+         if (username.length==0 || password.length==0 || res_pw.length==0|| email.length ==0){
+             errorText.textContent = 'Please fill in the input box completely';
+             event.preventDefault();
+                return;
+         }
+         else {
+            errorText.textContent = '';
+        }
+         
+         if (password.length !=0 & res_pw.length !=0 & password != res_pw){
+             errorText.textContent = 'The passwords you entered twice do not match';
+             event.preventDefault();
+             return;
+         }
+         
+         if (!passwordRegex.test(password) || !passwordRegex.test(res_pw)){
+             errorText.textContent = 'The password must be 8 to 20 characters long.';
+             event.preventDefault();
+             return;
+         }
+         
+         if (!emailRegex.test(email)){
+             errorText.textContent = 'Email address does not meet the requirements';
+             event.preventDefault();
+             return;
+         }
+         else {
+            errorText.textContent = '';
+        }
+     });
+    
+</script>
+</body>
+</html>

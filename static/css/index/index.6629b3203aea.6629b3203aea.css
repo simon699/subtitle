@@ -1,0 +1,117 @@
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+
+.container{
+    width: 100%;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.carouse-h2{
+    animation: slideUp 1.5s ease-out forwards;
+    opacity: 0;  /* 开始时使元素不可见 */
+    text-align: center;
+    padding-top: 100px;
+    color: white;
+    line-height: 45px;
+    font-weight: 700;
+    font-size: 50px;
+
+}
+
+.carouse-p{
+    animation: slideUp 1.5s ease-out forwards;
+    opacity: 0;  /* 开始时使元素不可见 */
+    text-align: center;
+    padding-top: 50px;
+    color: white;
+    font-size: 20px;
+    line-height: 35px;
+}
+
+.carousel-img{
+    animation: slideUp 1.5s ease-out forwards;
+    opacity: 0;  /* 开始时使元素不可见 */
+    display: block;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-left: 100px;
+    width: 500px;
+}
+
+
+.Limited-time-offer{
+    width: 1440px;
+    margin: 0 auto;
+}
+
+
+
+
+.product-card{
+    width: 100%;
+    background-color: #fff;
+}
+
+.card-view{
+    width: 1440px;
+    height: auto;
+    margin: 0 auto;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.card-item{
+    width: 700px;
+    background-color: #dddcd8;
+}
+
+
+.picing-card{
+    width: 100%;
+    background-color: white;
+}
+
+.picing-view{
+    width: 1440px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.team-item{
+    width: 450px;
+    height: 440px;
+    background-color: lightgray;  /* 卡片的背景颜色，仅为示意 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.bottomView{
+    width: 1440px;
+    margin: 0 auto;
+}
+
+
+
+
+
+

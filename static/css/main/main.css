@@ -1,0 +1,56 @@
+.container{
+    width: 100%;
+    margin: 0 auto;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100%
+}
+
+.detail-container{
+    width: 100%;
+    margin: 0 auto;
+}
+
+.detail-view{
+    width:1440px;
+    height: 100px;
+    margin: 0 auto;
+    background-color: #3e4ac6;
+}
+
+.text-center{
+    text-align: center;
+    color: white;
+    text-size: 30px;
+    line-height: 50px;
+}
+
+.text-p{
+    text-align: center;
+    color: white;
+    text-size: 20px;
+    line-height: 30px;
+    padding-bottom: 20px;
+}
+
+.upload-container{
+    width:1440px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.upload-img{
+    width: 300px;
+    height: 600px;
+    margin-top: 100px;
+    margin-left: 100px;
+}
+
+.form-control{
+    width: 800px;
+    border: 1px solid #ced4da;
+    border-radius: 1px;
+    padding: 0.375rem 0.75rem;
+    margin-top:10px;
+}
