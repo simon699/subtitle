@@ -99,6 +99,7 @@
 <script>
     var name = '{{ name|escapejs }}';
     
+    
     document.getElementById('loginForm').addEventListener('submit',function (event){
 
         var username = document.getElementById('login_username').value;
@@ -130,6 +131,8 @@
             errorText.textContent = '';
         }
     });
+    
+     
     
     document.getElementById('id_sign_username').addEventListener('blur',function (){
         var username = this.value.trim();
