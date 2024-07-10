@@ -34,6 +34,7 @@
     
     <div id="loginview" style="display: none;">
         <form id="loginForm" action="{% url 'login_user' %}" method="POST">
+        {% csrf_token %}
             <p class="form-title">LOGIN</p>
             <div class="input-container">
                 {{ form_obj.login_username }}
@@ -47,7 +48,7 @@
                 {{ message }}
                 </span>
                 {% endif %}
-            {% csrf_token %}
+            
             <button type="submit" class="submit">LOGIN</button>
 
             <p class="signup-link" style="margin-top: 10px;">No account？
@@ -58,6 +59,7 @@
 
     <div id="signview" style="display: none;">
         <form id="signForm" action="{% url 'sign_user' %}" method="POST" >
+        {% csrf_token %}
             <p class="form-title">Register your account</p>
             <div class="input-container">
                 {{ form_obj.sign_username }}
@@ -79,8 +81,7 @@
                 {{ message }}
             </span>
             {% endif %}
-        
-            {% csrf_token %}
+
             <button type="submit" class="submit">Register</button>
 
             <p class="signup-link" style="margin-top: 10px;">Have an account？
